@@ -1,0 +1,32 @@
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String words[] = s.split(" ");
+        Map<Character,String> map1 = new HashMap<>();
+        Map<String,Character> map2 = new HashMap<>();
+
+         if(words.length!=pattern.length()){
+                return false;
+            }
+
+        for(int j=0; j<pattern.length(); j++){
+            char ch = pattern.charAt(j);
+            String Singleword = words[j];
+            if(map1.containsKey(ch)){
+                if(!map1.get(ch).equals(Singleword)){
+                    return false;
+                }   
+            }else{
+                map1.put(ch,Singleword);
+                }
+            if(map2.containsKey(Singleword)) {
+                if (map2.get(Singleword) != ch) {
+                    return false;
+                }
+            }else{
+                map2.put(Singleword, ch);
+        }
+    }
+    return true;      
+    }
+}
+
