@@ -1,0 +1,30 @@
+class Solution {
+    public boolean isValid(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        for (int i = 0; i < sb.length(); i++) {
+            boolean pairRemoved = false;
+
+            for (int j = 0; j < sb.length() - 1; j++) {
+                char a = sb.charAt(j);
+                char b = sb.charAt(j + 1);
+
+                // Check for valid adjacent pairs
+                if ((a == '(' && b == ')') ||
+                    (a == '{' && b == '}') ||
+                    (a == '[' && b == ']')) {
+
+                    sb.delete(j, j + 2);
+                    pairRemoved = true;
+                    i = -1;
+                    break;  
+                }
+            }
+            if (!pairRemoved) {
+                break;
+            }
+        }
+        return sb.length() == 0;
+    }
+}
+
+ 
