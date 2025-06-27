@@ -1,0 +1,75 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+
+class Solution {
+    static ListNode reverse(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode prev = head;
+        ListNode current = prev.next;
+
+        while(current != null){
+            ListNode nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        head.next = null;
+        return prev;
+    }
+
+    static int lengthOfList(ListNode head){
+        int size = 0;
+        ListNode temp;
+        temp = head;
+        while(temp != null){
+            size++;
+            temp = temp.next;
+        }
+        return size;
+    }
+
+    private ListNode getKthNode(ListNode temp, int k) {
+        for (int i = 1; i < k; i++) {
+        if (temp == null){
+            return null;
+            } 
+        temp = temp.next;
+        }
+        return temp; 
+    }
+
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode ptr = dummy;
+        int length = lengthOfList(ptr.next);
+
+        
+        while(length>=k){
+        ListNode GroupStart = ptr.next;
+        ListNode GroupEnd = GroupStart;
+            for(int i = 1; i < k; i++){
+            GroupEnd = GroupEnd.next;
+            }
+            ListNode NewGroupStart = GroupEnd.next;
+            GroupEnd.next = null;
+            ptr.next = reverse(GroupStart);
+            ptr = GroupStart;
+            ptr.next = NewGroupStart;
+
+        length = length - k;   
+        }
+        return dummy.next;
+    }
+}
