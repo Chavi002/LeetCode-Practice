@@ -1,0 +1,69 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    static ListNode reverse(ListNode current){
+    ListNode head = current;
+
+
+    ListNode previous = current;
+    ListNode currentNode = previous.next;
+    while(currentNode != null){
+        ListNode nextNode = currentNode.next;
+        currentNode.next = previous;
+        //update pointers
+        previous = currentNode;
+        currentNode = nextNode;
+        
+    }
+    head.next = null;
+    return previous;
+}
+
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+
+        if (head == null || left == right){
+            return head;
+        }
+        if (left == 1) {
+        ListNode temp = head;
+        for (int i = 1; i < right; i++) {
+            temp = temp.next;
+        }
+        ListNode afterTail = temp.next;
+        temp.next = null;
+
+        ListNode result = reverse(head); 
+        head.next = afterTail;           
+        return result;                   
+    }
+
+       ListNode temp;
+       temp = head;
+       for(int i = 1; i < left-1; i++){
+        temp = temp.next;
+       } 
+       ListNode beforeCurrent = temp;
+       ListNode current = beforeCurrent.next; // current now points to 3rd position;
+   
+        temp = current; 
+        for(int i =left; i<right ; i++){
+        temp = temp. next;
+        }
+         ListNode tailPointer = temp;
+         ListNode afterTail = tailPointer.next;
+         tailPointer.next = null;
+ 
+        ListNode result = reverse(current);
+        beforeCurrent.next = result;
+        current.next = afterTail;
+        return head;
+    }
+}
