@@ -1,0 +1,31 @@
+class Solution {
+    public String decodeString(String s) {
+        Stack<Integer> countStack = new Stack<>();
+        Stack<StringBuilder> stringStack = new Stack<>();
+        StringBuilder currentString = new StringBuilder();
+        int num = 0;
+        char [] ch = s.toCharArray();
+        for(int i = 0; i < s.length(); i++){
+            char singleChar = ch[i];
+            if(Character.isDigit(singleChar)){
+                num = num * 10 +(singleChar - '0');
+            } else if(singleChar == '['){
+                countStack.push(num);
+                stringStack.push(currentString);
+                num = 0;
+                currentString = new StringBuilder();
+            }else if (singleChar == ']'){
+                int noOfRepeatitions = countStack.pop();
+                StringBuilder temp = stringStack.pop();
+                for(int j = 0; j < noOfRepeatitions; j++ ){
+                    temp.append(currentString);
+                }
+                currentString = temp;
+            }
+            else{
+                currentString.append(singleChar);
+            }
+        }
+        return currentString.toString();
+    }
+}
