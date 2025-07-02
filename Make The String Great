@@ -7,19 +7,14 @@ class Solution {
 
             if(!stack.isEmpty()){
             char peek = stack.peek();
-            if (singleChar >= 'a' && singleChar <= 'z' && peek == (char)(singleChar - 32)) {
+            if (Math.abs(peek - singleChar) == 32){ //taking absolute value
             stack.pop();
-            }
-            else if(singleChar >= 'A' && singleChar <= 'Z' && peek == (char)(singleChar + 32)) {
-            stack.pop();
-            }
-            else{
+            }else{
             stack.push(singleChar);
             }
         }else{
             stack.push(singleChar);
-        }
-        
+        }    
     }
     StringBuilder sb = new StringBuilder();
         while(!stack.isEmpty()){
