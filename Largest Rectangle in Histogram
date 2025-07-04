@@ -1,0 +1,51 @@
+class Solution {
+    private int[] previousSmallest(int[] heights){
+        Stack<Integer> stack = new Stack<>();
+        int left[] = new int[heights.length];
+        int n = heights.length;
+        for(int i= 0; i < n; i++){
+            while(!stack.isEmpty() && heights[stack.peek()] >= heights[i]){
+                    stack.pop();
+            }
+            if(stack.isEmpty()){
+                left[i] = -1;
+            }else{
+                left[i] = stack.peek();
+            }
+            stack.push(i);
+        }
+        return left;
+    }
+
+    private int[] nextSmallest(int[] heights){
+        Stack<Integer> stack = new Stack<>();
+        int right[] = new int[heights.length];
+        int n = heights.length;
+        for(int i = n-1; i>=0; i--){
+            while(!stack.isEmpty() && heights[stack.peek()] >= heights[i]){
+                    stack.pop();
+            }
+            if(stack.isEmpty()){
+                right[i] = n;
+            }else{
+                right[i] = stack.peek();
+            }
+            stack.push(i);
+        }
+        return right;
+    }
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int maxArea = 0;
+        int [] left = previousSmallest(heights); 
+        int [] right = nextSmallest(heights);
+        for(int i =0; i < n; i++ ){
+            int width = right[i] - left[i] -1;
+            int height = heights[i];
+            int area = (width * height);
+            maxArea = Math.max(area, maxArea);
+        }
+       
+    return maxArea;
+    }
+}
