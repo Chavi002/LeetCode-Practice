@@ -1,0 +1,22 @@
+class Solution {
+    public int numSubarraysWithSum(int[] nums, int goal) {
+    Map<Integer, Integer> map = new HashMap<>();
+    int prefix = 0;
+    int count = 0;
+    for(int i = 0; i < nums.length; i++){
+        prefix = prefix + nums[i];
+        if(prefix == goal){
+            count++;
+        }
+        if(map.containsKey(prefix - goal)){
+            count = count + map.get(prefix - goal);
+        }
+        if(map.containsKey(prefix)){
+            map.put(prefix, map.get(prefix)+1);
+        }else{
+            map.put(prefix, 1);
+        }
+    }
+        return count;  
+    }
+}
