@@ -1,0 +1,25 @@
+// String based solution
+public class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        return compareString(s).equals(compareString(t));
+    }
+
+    public String compareString(String str) {
+        char[] result = new char[str.length()];
+        int index = 0;
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if (ch != '#') {
+                result[index] = ch;
+                index++;
+            } else {
+                if (index > 0) {
+                    index--; //This is done to remove previous character
+                }
+            }
+        }
+        return new String(result, 0, index); //This will give us result upto desied indexes only
+    }
+}
