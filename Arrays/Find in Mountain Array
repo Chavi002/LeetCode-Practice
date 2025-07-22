@@ -1,0 +1,54 @@
+
+//Binary Search
+class Solution {
+    public int findPeak(MountainArray mountainArr){
+        int low = 1;
+        int high = mountainArr.length() - 2;
+        
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+        
+        if(mountainArr.get(mid) > mountainArr.get(mid+1)){
+                high = mid;
+            }else{
+                low = mid+1;
+            }
+        }
+        return low;
+    }   
+
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int peak = findPeak(mountainArr);
+        int low = 0;
+        int high = peak;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if(mountainArr.get(mid) == target){
+                return mid;
+            }
+            else if(target > (mountainArr.get(mid)) ){
+                low = mid+1;
+            }else{
+                high = mid-1;
+            }   
+        }
+         low = peak+1;
+         high = mountainArr.length()-1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if(mountainArr.get(mid) == target){
+                return mid;
+            }
+            else if(target > (mountainArr.get(mid)) ){
+               high = mid-1;
+            }else{
+                low = mid+1;
+            }   
+        }
+    return -1;    
+    }
+}   
+
+
