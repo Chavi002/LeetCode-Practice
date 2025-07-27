@@ -1,0 +1,55 @@
+//Brute force O(n3)TC
+class Solution11 {
+    public List<List<Integer>> threeSum(int[] nums) {
+        
+        List<List<Integer>> bigList = new ArrayList<>();
+        Set<List<Integer>> set = new HashSet<>();
+        for(int i = 0; i < nums.length; i++){
+            for(int j = i+1; j < nums.length; j++){
+                for(int k = j+1; k < nums.length; k++){
+                    if(nums[i] + nums[j] + nums[k] == 0){
+                        List<Integer> smallList = new ArrayList<>();
+                        smallList.add(nums[i]);
+                        smallList.add(nums[j]);
+                        smallList.add(nums[k]);
+                        Collections.sort(smallList);
+
+                        if(!set.contains(smallList)){
+                        set.add(smallList);
+                        bigList.add(smallList);  
+                        }
+                    }    
+                }    
+            }
+        }
+        return bigList;
+    }
+}
+
+//Better solution
+class Solution{
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> bigList = new ArrayList<>();
+        Set<List<Integer>> resultSet = new HashSet<>();
+
+        for(int i = 0; i < nums.length; i++){
+            Set<Integer> set = new HashSet<>(); // empty set with every new value of i;
+            for(int j = i+1; j < nums.length; j++){
+                int third = -(nums[i] + nums[j]);
+                if(set.contains(third)){ 
+                    List<Integer> smallList = new ArrayList<>();
+                    smallList.add(nums[i]);
+                    smallList.add(nums[j]);
+                    smallList.add(third);
+                    Collections.sort(smallList);
+                    if(!resultSet.contains(smallList)){
+                        resultSet.add(smallList);
+                        bigList.add(smallList); 
+                    }  
+                }
+                set.add(nums[j]); //Add it anyways, whether triplet is found or not.
+            }
+        }
+    return bigList;
+    }
+}
