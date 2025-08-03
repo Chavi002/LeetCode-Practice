@@ -1,0 +1,7 @@
+class Solution {
+    public int bitwiseComplement(int n) {
+    int noOfBits = Integer.toBinaryString(n).length();
+    int mask = ((1 << noOfBits) -1);
+    return mask ^ n;
+    }
+}
