@@ -1,0 +1,27 @@
+//Brute Force
+class Solution {
+    public int[] replaceElements(int[] arr) {
+        for(int i = 0; i < arr.length-1; i++){
+            int greatest = 0;
+            for(int j = i+1; j < arr.length; j++){
+                greatest = Math.max(greatest, arr[j]);
+            }
+            arr[i] = greatest;
+        }
+        arr[arr.length-1] = -1;
+        return arr;    
+    }
+}
+
+//Optimized Solution
+class Solution {
+    public int[] replaceElements(int[] arr) {
+        int greatest = -1;
+        for(int i = arr.length-1; i >=0; i--){
+            int currentElement = arr[i]; //storing the current element
+            arr[i] = greatest; //over writting the current element
+            greatest = Math.max(greatest, currentElement); //updating GreatestElement
+        }
+        return arr;    
+    }
+}
